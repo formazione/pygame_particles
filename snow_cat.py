@@ -26,14 +26,14 @@ class Particle:
         pygame.init()
         
         # the two main surfaces
-        self.screen = pygame.display.set_mode((800, 600), pygame.RESIZABLE)
-        self.new_surface = pygame.Surface((800, 600))
+        self.screen = pygame.display.set_mode((600, 600), pygame.RESIZABLE)
+        self.new_surface = pygame.Surface((600, 600))
 
         self.frame_rate = pygame.time.Clock().tick
         # loading images for the script
-        self.bg = pygame.image.load("snow6.png").convert_alpha()
-        self.cloud = pygame.image.load("cloud.png").convert_alpha()
-        self.fg = pygame.image.load("snow5.png").convert_alpha()
+        self.bg = pygame.image.load("catbg.png").convert_alpha()
+        # self.cloud = pygame.image.load("cloud.png").convert_alpha()
+        self.fg = pygame.image.load("cat.png").convert_alpha()
         self.snow_flakes_list = []
         self.rain_drops_list = []
         self.resize = 0
@@ -51,11 +51,11 @@ class Particle:
 
     def images_display(self):
         "Make snow fall down - blitting images and calling the flake generator"
-        self.new_surface.blit(self.bg, (0, 80))
+        self.new_surface.blit(self.bg, (0, 0))
         self.snow_flakes_generator()
         # self.new_surface.blit(self.cloud, (-110,-100))
-        self.new_surface.blit(self.cloud, (-50, 290))
-        self.new_surface.blit(self.cloud, (450, 290))
+        # self.new_surface.blit(self.cloud, (-50, 290))
+        # self.new_surface.blit(self.cloud, (450, 290))
         self.new_surface.blit(self.fg, (0, 0))
         if self.resize:
             self.screen.blit(pygame.transform.scale(self.new_surface.convert_alpha(), (self.w, self.h)), (0, 0))
@@ -67,7 +67,7 @@ class Particle:
         "A call to the self.update method to run stuffs"
         
         # Start the mp3 loaded at the beginning
-        pygame.mixer.music.play(-1)
+        pygame.mixer.music.play()
         self.run = True
         while self.run:
             run = self.update()
@@ -77,7 +77,7 @@ class Particle:
     # the surface with the snow as a background
 
     def generate_one_particle(self, dim):
-        direction = [random_pos(), random.randint(30,50)]
+        direction = [random_pos(), 5]
         # direction of x and next y pos incremented of 0.01
         # change the 2 to change the way the snow flake falls
         angle_vel = [random.randint(0, 20) / 10 - 1, 2]
@@ -89,7 +89,7 @@ class Particle:
 
     def snow_flakes_generator(self):
         "circles move from random start position at the top until bottom and the disappear"
-        self.snow()
+        # self.snow()
         self.rain()
 
     def snow(self):
@@ -119,7 +119,7 @@ class Particle:
                                             # but it is increased of 0.01 down here, so it goes down at the same speed
             particle[2] -= melting # the snowflake shriks
             particle[1][1] += gravity # * random.randint(-3, 6) # increase down speed a bit
-            if particle[0][1] > 330: # when the radius is 0 it is removed, so we do not see it anymore and it's not in the memory
+            if particle[0][1] > 500: # when the radius is 0 it is removed, so we do not see it anymore and it's not in the memory
                 elements_list.remove(particle)
 
         # draws a circle on the screen white, at x y corrds and with a ray of particle[2]
@@ -128,10 +128,10 @@ class Particle:
             speed = particle[0][1]
             radius = particle[2]
             # circle: surface, color, pos, radius
-            # self.new_surface.set_alpha(122)
+            self.new_surface.set_alpha(122)
             pygame.draw.circle(
             	self.new_surface,
-            	(255, 255, 255), # color
+            	(200, 200, 200), # color
             	(
             		round(pos), # Pos x, y
             		round(speed)), # direction / speed

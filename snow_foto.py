@@ -14,7 +14,7 @@ import sys
 
 pygame.mixer.init()
 pygame.mixer.music.load("snow.mp3")
-FPS = 30
+FPS = 60
 
 
 class Particle:
@@ -26,14 +26,14 @@ class Particle:
         pygame.init()
         
         # the two main surfaces
-        self.screen = pygame.display.set_mode((800, 600), pygame.RESIZABLE)
-        self.new_surface = pygame.Surface((800, 600))
+        self.screen = pygame.display.set_mode((600, 400), pygame.RESIZABLE)
+        self.new_surface = pygame.Surface((600, 400))
 
         self.frame_rate = pygame.time.Clock().tick
         # loading images for the script
-        self.bg = pygame.image.load("snow6.png").convert_alpha()
-        self.cloud = pygame.image.load("cloud.png").convert_alpha()
-        self.fg = pygame.image.load("snow5.png").convert_alpha()
+        self.bg = pygame.image.load("win4.png").convert_alpha()
+        # self.cloud = pygame.image.load("cloud.png").convert_alpha()
+        self.fg = pygame.image.load("win2.png").convert_alpha()
         self.snow_flakes_list = []
         self.rain_drops_list = []
         self.resize = 0
@@ -51,11 +51,11 @@ class Particle:
 
     def images_display(self):
         "Make snow fall down - blitting images and calling the flake generator"
-        self.new_surface.blit(self.bg, (0, 80))
+        self.new_surface.blit(self.bg, (0, 0))
         self.snow_flakes_generator()
         # self.new_surface.blit(self.cloud, (-110,-100))
-        self.new_surface.blit(self.cloud, (-50, 290))
-        self.new_surface.blit(self.cloud, (450, 290))
+        # self.new_surface.blit(self.cloud, (-50, 290))
+        # self.new_surface.blit(self.cloud, (450, 290))
         self.new_surface.blit(self.fg, (0, 0))
         if self.resize:
             self.screen.blit(pygame.transform.scale(self.new_surface.convert_alpha(), (self.w, self.h)), (0, 0))
@@ -89,7 +89,7 @@ class Particle:
 
     def snow_flakes_generator(self):
         "circles move from random start position at the top until bottom and the disappear"
-        self.snow()
+        # self.snow()
         self.rain()
 
     def snow(self):
